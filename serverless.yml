@@ -1,0 +1,85 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: expedient
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: expedient-app
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: expedient-service
+# useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'staging'} # Default to 'dev' if not provided
+  environment:
+    DB_HOST: ${env:DB_HOST}
+    DB_USER_NAME: ${env:DB_USER_NAME}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DATABASE_NAME: ${env:DATABASE_NAME}
+    TIMEZONE: ${env:TIMEZONE}
+
+functions:
+  sendTimesheetNotification:
+    handler: index.timesheetNotification
+    events:
+      - schedule:
+          rate: rate(1 minute)
+          enabled: true
+
+  sendCanBackgroundScreeningNotif:
+    handler: index.candidateBackgroundScreening
+    events:
+      - schedule:
+          rate: rate(24 hours)
+          enabled: true
+
+  sendCanCertificationNotif:
+    handler: index.candidateCertificate
+    events:
+      - schedule:
+          rate: rate(24 hours)
+          enabled: true
+
+  sendCandHealthScreeningNotif:
+    handler: index.candidateHealthScreening
+    events:
+      - schedule:
+          rate: rate(24 hours)
+          enabled: true
+
+  sendCanLicenseNotif:
+    handler: index.candidateLicense
+    events:
+      - schedule:
+          rate: rate(24 hours)
+          enabled: true
+
+  sendCandOnboardingDocumentNotif:
+    handler: index.candidateOnboardingDocument
+    events:
+      - schedule:
+          rate: rate(24 hours)
+          enabled: true
+
+  sendCanProfileDocumentNotif:
+    handler: index.candidateProfileDocument
+    events:
+      - schedule:
+          rate: rate(24 hours)
+          enabled: true
+
+  sendCanSkillNotif:
+    handler: index.candidateSkill
+    events:
+      - schedule:
+          rate: rate(24 hours)
+          enabled: true
+
+  sendCandTestNotif:
+    handler: index.candidateTest
+    events:
+      - schedule:
+          rate: rate(24 hours)
+          enabled: true
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin

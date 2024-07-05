@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
+    "mysql2": "^3.10.1"
+  },
+  "devDependencies": {
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-offline": "^13.6.0"
+  }
+}
